@@ -1,17 +1,21 @@
 $(document).ready(function () {
     setupTabClick();
     setupFormInteractions();
-    setupFormSubmission();
+    $('#signup-form').on('submit', function (e){
+        e.preventDefault();
+        window.location.href = 'pages/bookstore.html';
+    });
 });
 
 function setupFormSubmission() {
-    $('#signup-form').on('submit', submitForm);
+    $('#btnSignUp').on('submit', submitForm);
 }
 
 function submitForm(e) {
     e.preventDefault();
     var formData = $(this).serialize();
-    sendFormData(formData);
+    window.location.href = 'pages/bookstore.html';
+    // sendFormData(formData);
 }
 
 function sendFormData(formData) {
@@ -26,7 +30,7 @@ function sendFormData(formData) {
 
 function handleSuccess(response) {
     console.log("Form submitted successfully!", response);
-    window.location.href = '../pages/bookstore.html';
+
 }
 
 function handleError(xhr, status, error) {
