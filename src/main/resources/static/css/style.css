@@ -68,7 +68,7 @@ li a {
     width: 50%;
     text-align: center;
     cursor: pointer;
-    transition: 0.5ms ease;
+    transition: 0.4ms ease;
 }
 li a:hover{
     background-color: var(--main-dark);
@@ -84,15 +84,15 @@ li.active a {
 h1{
     text-align: center;
     color: white;
-    font: var(--thin);
+    font-weight: var(--thin);
     margin: 0 0 40px;
 }
 label {
     position: absolute;
     transform:translateY(6px);
     left: 13px;
-    color: color(var(--white) / 0.5);
-    transition: all 0.25ms ease;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.2ms ease;
     -webkit-backface-visibility: hidden;
     pointer-events: none;
     font-size: 22px;
@@ -125,7 +125,7 @@ input, textarea {
     border:1px solid #a0b3b0;
     color:white;
     border-radius:0;
-    transition:border-color .25s ease, box-shadow .25s ease;
+    transition:border-color .1s ease, box-shadow .1s ease;
 }
 input:focus, textarea:focus {
     outline:0;
@@ -157,7 +157,6 @@ textarea {
 .top-row > div:last-child {
     margin-right: 0;
 }
-
 
 .button {
     border:0;
