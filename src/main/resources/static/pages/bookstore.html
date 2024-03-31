@@ -16,14 +16,14 @@
 </head>
 <body>
     <div class="book-store">
-        <div class="header" style="border: 1px solid red; ">
+        <div class="header" >
             <div class="browse">
-                <div class="browse-category">
+                <div id="browse-category-1" class="browse-category" role="button">
                     Browse Category
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                        <path d="M6 9l6 6 6-6" /></svg>                    
-                </div>
-                <div class="search-bar input-group rounded">
+                        <path d="M6 9l6 6 6-6" /></svg>
+                    </div>
+                <div class="search-bar input-group">
                   <input type="search" class="form-control" placeholder="Search Book" />
                 </div>
             </div>
@@ -32,12 +32,20 @@
                 <div class="user-profile">
                     <img class="user-img" src="../img/user-img.jpg" alt="">
                 </div>
-                <div class="profile-menu">
+                <div class="profile-menu" role="button">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
                         <path d="M3 12h18M3 6h18M3 18h18" /></svg>
                     Menu    
                 </div>
             </div>
+        </div>
+        <!-- 下拉菜单内容 -->
+        <div class="dropdown-menu" style="display: none;">
+            <ul>
+                <li><a href="#category1">Category 1</a></li>
+                <li><a href="#category2">Category 2</a></li>
+                <li><a href="#category3">Category 3</a></li>
+            </ul>
         </div>
         <div id="book-shelf" class="row row-eq-height"></div>
         <div class="main-wrapper"></div>
