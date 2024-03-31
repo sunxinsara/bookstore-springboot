@@ -137,3 +137,45 @@ img{
     font-weight: 500;
     color: var(--body-color);
 }
+
+.user-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.user-profile {
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.user-profile:before {
+    content: "";
+    position: absolute;
+    background-color: #f86d72;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 2px solid var(--theme-bg-color);
+    right: 12px;
+    top: -3px;
+    border: 2px solid #fff;
+   }
+
+.profile {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.profile svg {
+    width: 16px;
+    margin: 0 8px 0 15px;
+    flex-shrink: 0;
+}
+.profile-menu {
+    display:flex;
+    align-items: center;
+    border-left: 1px solid var(--border-color);
+   }
