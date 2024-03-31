@@ -1,5 +1,6 @@
-package com.example.accessingdatamysql;
+package com.bookstore.springbootbookstore.repository;
 
+import com.bookstore.springbootbookstore.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository

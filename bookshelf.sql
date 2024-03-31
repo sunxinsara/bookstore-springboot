@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS db_example;
 CREATE DATABASE db_example;
 USE db_example;
-CREATE TABLE books (
+CREATE TABLE book (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     author VARCHAR(100) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE books (
     categories VARCHAR(255)
 );
 
-INSERT INTO books (title, author, image_url, categories) VALUES
+INSERT INTO book (title, author, image_url, categories) VALUES
 ('The 15th Affair: The New Women''s Murder Club Novel', 'James Patterson', 'http://res.cloudinary.com/dtj4lxtyr/image/upload/v1519649198/bc-15th_affair_fs9zas.jpg', 'crimeDrama,thriller,novel'),
 ('Before the Fall', 'Noah Hawley', 'http://res.cloudinary.com/dtj4lxtyr/image/upload/v1519649180/bc-before_the_fall_xn9ry4.jpg', 'fiction,novel'),
 ('Diary of a Wimpy Kid: Double Down', 'Jeff Kinney', 'http://res.cloudinary.com/dtj4lxtyr/image/upload/v1519649214/bc-diary_of_a_wimpy_kid_odilob.jpg', 'childFiction,novel'),

@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql;
+package com.bookstore.springbootbookstore.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
