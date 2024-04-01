@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 // curl http://localhost:8080/book/all
-@Controller // This means that this class is a Controller
+// @Controller // This means that this class is a Controller
+@RestController // combined with @Controller and @ResponseBody
 @RequestMapping(path="/book") // This means URL's start with /demo (after Application path)
 public class BookSelfController {
     @Autowired // This means to get the bean called userRepository
@@ -47,4 +49,82 @@ public class BookSelfController {
         }
     }
 
+    @PutMapping(path="/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book bookDetails){
+        // Optional<Book> is generally used for queries where at most one result is expected.
+        // This is typically the case for searches based on unique identifiers, like an ID.
+        Optional<Book> bookData = bookRepository.findById(id);
+
+        if (bookData.isPresent()){
+            Book updatedBook = bookData.get();
+            updatedBook.setTitle(bookDetails.getTitle());
+            updatedBook.setAuthor(bookDetails.getAuthor());
+            updatedBook.setCategories(bookDetails.getCategories());
+            updatedBook.setImage_url(bookDetails.getImage_url());
+            bookRepository.save(updatedBook);
+            return ResponseEntity.ok(updatedBook);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping(path="/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable int id) {
+        try {
+            bookRepository.deleteById(id);
+            return ResponseEntity.ok("Book deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting the book");
+        }
+    }
+
+    @GetMapping(path="/title/{title}")
+    public ResponseEntity<List<Book>> findByTitle(@PathVariable String title) {
+        List<Book> books = bookRepository.findByTitle(title);
+        if (!books.isEmpty()) {
+            return ResponseEntity.ok(books);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping(path = "title/like/{title}")
+    public ResponseEntity<List<Book>> findByTitleLikeIngoreCase(@PathVariable String title){
+        List<Book> books = bookRepository.findByTitleContainingIgnoreCase(title);
+        if (!books.isEmpty()) {
+            return ResponseEntity.ok(books);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping(path="/author/{author}")
+    public ResponseEntity<List<Book>> findByAuthor(@PathVariable String author) {
+        List<Book> books = bookRepository.findByAuthor(author);
+        if (!books.isEmpty()) {
+            return ResponseEntity.ok(books);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+//    @GetMapping(path="/author/like/{author}")
+//    public ResponseEntity<List<Book>> findByAuthorLike(@PathVariable String author) {
+//        String authorPattern = "%" + author + "%";
+//        List<Book> books = bookRepository.findByAuthorLike(authorPattern);
+//        if (books.isEmpty()) {
+//            return ResponseEntity.notFound().build();
+//        } else {
+//            return ResponseEntity.ok(books);
+//        }
+//    }
+
+    @GetMapping(path="/author/like/{author}")
+    public ResponseEntity<List<Book>> findByAuthorLikeIgnoreCase(@PathVariable String author) {
+        List<Book> books = bookRepository.findByAuthorContainingIgnoreCase(author);
+        if (books.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(books);
+        }
+    }
 }
