@@ -107,17 +107,6 @@ public class BookSelfController {
         }
     }
 
-//    @GetMapping(path="/author/like/{author}")
-//    public ResponseEntity<List<Book>> findByAuthorLike(@PathVariable String author) {
-//        String authorPattern = "%" + author + "%";
-//        List<Book> books = bookRepository.findByAuthorLike(authorPattern);
-//        if (books.isEmpty()) {
-//            return ResponseEntity.notFound().build();
-//        } else {
-//            return ResponseEntity.ok(books);
-//        }
-//    }
-
     @GetMapping(path="/author/like/{author}")
     public ResponseEntity<List<Book>> findByAuthorLikeIgnoreCase(@PathVariable String author) {
         List<Book> books = bookRepository.findByAuthorContainingIgnoreCase(author);
