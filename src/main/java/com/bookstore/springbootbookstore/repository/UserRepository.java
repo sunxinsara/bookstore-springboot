@@ -17,5 +17,5 @@ import org.springframework.data.repository.CrudRepository;
  * * 2.涉及条件查询时,条件的属性用条件关键字连接,要注意的是:条件属性以首字母大写。
  */
 public interface UserRepository extends CrudRepository<User, Integer> {
-
+    User findByEmail(String email);
 }
