@@ -5,11 +5,13 @@ import com.bookstore.springbootbookstore.entity.Role;
 import com.bookstore.springbootbookstore.entity.User;
 import com.bookstore.springbootbookstore.repository.RoleRepository;
 import com.bookstore.springbootbookstore.repository.UserRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Profile("not-active-profile")
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;

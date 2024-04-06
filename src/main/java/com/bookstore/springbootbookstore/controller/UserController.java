@@ -3,9 +3,10 @@ package com.bookstore.springbootbookstore.controller;
 import com.bookstore.springbootbookstore.entity.User;
 import com.bookstore.springbootbookstore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+@Profile("not-active-profile")
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/register") // This means URL's start with /demo (after Application path)
 public class UserController {

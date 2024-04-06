@@ -3,6 +3,7 @@ package com.bookstore.springbootbookstore.security;
 import com.bookstore.springbootbookstore.entity.Role;
 import com.bookstore.springbootbookstore.entity.User;
 import com.bookstore.springbootbookstore.repository.UserRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
+@Profile("not-active-profile")
 public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
