@@ -1,0 +1,21 @@
+/* menu on hover - with animation */
+.dropdown.drop-collapsed .dropdown-menu {
+  height: 0 !important;
+  z-index: -1;
+}
+.dropdown .dropdown-menu {
+  overflow: hidden;
+  -webkit-transition: height 0.65s ease;
+  transition: height 0.65s ease;
+}
+.navbar-nav > li > .dropdown-menu {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.navbar-nav > li.open .dropdown-menu {
+  visibility: visible;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
