@@ -5,6 +5,11 @@
 .navbar{
   margin-bottom: 0px;
 }
+
+.navbar-brand>img{
+  max-width: 100px;
+  margin:auto;
+}
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
