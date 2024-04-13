@@ -9,9 +9,15 @@ h2 {
     unicode-bidi: isolate;
 }
 
-.section-title{
+.section-title {
+    font-size: 3em;
+    font-weight: 500;
+    line-height: 1;
+    position: relative;
     text-align: center;
-}
+  }
+  
+
 /*------------------------------------------------
 /* 2.6 Tables
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -53,27 +59,6 @@ td:last-child {
     padding: 15%;
     cursor: pointer;
     width: 100%;
-  }
-  
-  .product-style button.add-to-cart {
-    position: absolute;
-    background: #000;
-    color: #fff;
-    width: 100%;
-    margin: 0;
-    text-transform: uppercase;
-    text-align: center;
-    line-height: 3;
-    bottom: 300px;
-    bottom: -65px;
-    left: 0;
-    z-index: 9;
-    transition: 0.3s ease-out;
-  }
-  
-  .product-style:hover button.add-to-cart {
-    bottom: 380px;
-    bottom: 0;
   }
   
   .product-item figcaption {
@@ -127,13 +112,6 @@ td:last-child {
     position: relative;
   }
   
-  [data-tab-content] {
-    opacity: 0;
-    visibility: hidden;
-    height: 0;
-    overflow: hidden;
-  }
-  
   .active[data-tab-content] {
     opacity: 1;
     visibility: visible;
@@ -164,13 +142,6 @@ td:last-child {
     color: #111;
     border-bottom: 2px solid #9A884C;
   }
-  
-  img.books-image {
-    /*height: 290px;*/
-    margin-right: 10px;
-    margin-bottom: 20px;
-    object-fit: cover;
-  }
 
   /*add to cart*/
   .product-style button.add-to-cart {
@@ -182,24 +153,13 @@ td:last-child {
     text-transform: uppercase;
     text-align: center;
     line-height: 3;
-    bottom: 300px;
     bottom: -65px;
     left: 0;
     z-index: 9;
     transition: 0.3s ease-out;
   }
-  
+
   .product-style:hover button.add-to-cart {
     bottom: 380px;
     bottom: 0;
-  }
-
-  .product-style>button{
-    font-size: 1em;
-    font-family: inherit;
-    font-weight: 600;
-    border: none;
-    height: 65px;
-    cursor: pointer;
-    text-transform: uppercase;
   }
