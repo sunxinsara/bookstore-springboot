@@ -1,0 +1,308 @@
+/*------------------------------------------------
+/* 2.6 Tables
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1;
+}
+
+th:first-child,
+td:first-child {
+  padding-left: 0;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+
+/*product*/
+.product-style {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .slick-slider .product-style {
+    margin: 0 15px 25px;
+  }
+  
+  .product-style figcaption p {
+    margin-bottom: 20px;
+  }
+  
+  .product-style img.product-item {
+    position: relative;
+    background: #EFEEE8;
+    border: 1px solid #EAE8DF;
+    padding: 15%;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .product-style button.add-to-cart {
+    position: absolute;
+    background: #000;
+    color: #fff;
+    width: 100%;
+    margin: 0;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 3;
+    bottom: 300px;
+    bottom: -65px;
+    left: 0;
+    z-index: 9;
+    transition: 0.3s ease-out;
+  }
+  
+  .product-style:hover button.add-to-cart {
+    bottom: 380px;
+    bottom: 0;
+  }
+  
+  .product-item figcaption {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .product-item figcaption>h3 {
+    font-size: 1.4em;
+    font-weight: 500;
+    color: #74642F;
+    margin: 0;
+  }
+  .product-item figcaption>p {
+    margin: 0;
+  }
+  
+  .product-item .item-price {
+    color: #74642F;
+    font-size: 1.3em;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .products-grid .product-item {
+      width: 45%;
+    }
+  
+    .product-style img.product-item {
+      /*height: 550px;*/
+      object-fit: contain;
+      margin: 0 auto;
+    }
+  
+    .products-grid.col-3 .product-style,
+    .products-grid.col-4 .product-style,
+    .products-grid.col-5 .product-style {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 575px) {
+    .products-grid .product-style {
+      width: 100%;
+    }
+  }
+
+/*--- Image hover Effect
+-----------------------------------------------*/
+.image-hvr-effect {
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .image-hvr-effect img.post-image {
+    transform: scale(1);
+    will-change: transform;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 0;
+  }
+  
+  .image-hvr-effect:hover img.post-image {
+    transform: scale(1.1);
+  }
+
+/*====================================================================*/
+/* 5. CONTENT ELEMENTS */
+/*====================================================================*/
+
+/*--------------------------------------------------------------
+/** 5.1 General Tabs
+--------------------------------------------------------------*/
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+  
+  .nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link {
+      transition: none;
+    }
+  }
+  
+  .nav-link:hover,
+  .nav-link:focus {
+    color: var(--accent-color);
+  }
+  
+  .nav-link.disabled {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: default;
+  }
+  
+  .nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .nav-tabs .nav-link {
+    color: #999;
+    padding: 10px 30px;
+    margin-bottom: -1px;
+    background: none;
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+  }
+  
+  .nav-tabs .nav-link:hover,
+  .nav-tabs .nav-link:focus {
+    border-color: #e9ecef #e9ecef #dee2e6;
+    isolation: isolate;
+  }
+  
+  .nav-tabs .nav-link.disabled {
+    color: #6c757d;
+    background-color: transparent;
+    border-color: transparent;
+  }
+  
+  .nav-tabs .nav-link.active,
+  .nav-tabs .nav-item.show .nav-link {
+    color: #495057;
+    border-color: #dee2e6 #dee2e6 #f3f2ec;
+    --bs-nav-tabs-link-active-bg: transparent;
+  }
+  
+  .nav-tabs .dropdown-menu {
+    margin-top: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  
+  .nav-pills .nav-link {
+    background: none;
+    border: 0;
+    border-radius: 0.25rem;
+  }
+  
+  .nav-pills .nav-link.active,
+  .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #0d6efd;
+  }
+  
+  .nav-fill>.nav-link,
+  .nav-fill .nav-item {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+  
+  .nav-justified>.nav-link,
+  .nav-justified .nav-item {
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .nav-fill .nav-item .nav-link,
+  .nav-justified .nav-item .nav-link {
+    width: 100%;
+  }
+  
+  .bootstrap-tabs .tab-content {
+    padding: 20px 0;
+  }
+  
+  .bootstrap-tabs .tab-content>.tab-pane {
+    display: none;
+  }
+  
+  .bootstrap-tabs .tab-content>.active {
+    display: block;
+  }
+
+  /*----- Popular Books Section
+--------------------------------------------------------------*/
+.tab-content {
+    position: relative;
+  }
+  
+  [data-tab-content] {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+  }
+  
+  .active[data-tab-content] {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+  }
+  
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 55px 0;
+    justify-content: center;
+    list-style: none;
+  }
+  
+  .tabs .tab {
+    font-weight: 600;
+    color: #999;
+    margin-right: 50px;
+    cursor: pointer;
+  }
+  
+  .tabs .tab.active,
+  .tabs .tab:hover {
+    color: #111;
+    border-bottom: 2px solid #9A884C;
+  }
+  
+  img.books-image {
+    /*height: 290px;*/
+    margin-right: 10px;
+    margin-bottom: 20px;
+    object-fit: cover;
+  }
+
+  /*--- Section Title
+-----------------------------------------------*/
+.section-header {
+    position: relative;
+  }
+  
+  .section-title {
+    font-size: 3em;
+    font-weight: 500;
+    line-height: 1;
+    position: relative;
+    text-align: center;
+    /* margin-bottom: 75px; */
+  }
