@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!--[if ]>
+      datatable 
+    <![endif]-->
     <script src="jquery-3.7.1.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
-    
+    <!-- Bootstrap core CSS -->
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script src="../assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="../dist/js/bootstrap.min.js"></script>
+    <style>
+        .wrapper{
+            border: 3px solid blue;
+        }
+    </style>
 </head>
 <body>
     <table id="example" class="display" style="width:100%">
@@ -493,7 +507,7 @@
     <script>
     $(document).ready(function(){
         $('#example').DataTable({
-            dom: 'rtip'
+            "dom": '<"wrapper"lftip>'
         })
     })
     </script>
