@@ -163,3 +163,13 @@ td:last-child {
     bottom: 380px;
     bottom: 0;
   }
+#product-list .row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px; /* or whatever gap you want */
+}
+
+#product-list .col-md-3 {
+  max-height: 600px;
+  min-height: 500px;
+}
