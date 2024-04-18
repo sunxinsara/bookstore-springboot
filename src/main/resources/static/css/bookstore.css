@@ -118,40 +118,45 @@ img{
     border-right: 1px solid var(--border-color);
     white-space: nowrap;
 }
-.browse-category svg {
-    width: 16px;
-    margin: 2px 10px 0 8px;
-}
 
 @media (max-width: 725px) {
     .browse-category, .search-bar {
      display: none;
 }
 }
-.dropdown-menu {
-    position: relative;
-    left: 0;
-    display: none;
-    top: 100%;
-    z-index: 1000; /* 确保在其他元素之上 */
-    background-color: #fff; /* 下拉菜单背景色 */
-    top:100%;
-    width: auto; /* 或指定宽度 */
-    padding: 10px 0; /* 上下填充 */
-    margin-top: 0;
-    border: none;
-    border-radius: 0;
+/* menu on hover - with animation */
+.dropdown.drop-collapsed .dropdown-menu {
+    height: 0 !important;
+    z-index: 1000;
 }
-.dropdown-menu a{
-    color: black;
-    padding: 12px 16px;
+.dropdown .dropdown-menu {
+    overflow: hidden;
+    -webkit-transition: height 0.65s ease;
+    transition: height 0.65s ease;
     text-decoration: none;
-    display: block;
-}
-.dropdown-menu:hover .dropdown-menu{
-    background-color: #f1f1f1
-}
 
+}
+.navbar-nav > li > .dropdown-menu {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    text-decoration: none;
+}
+.navbar-nav>li>a{
+    color: var(--body-color);
+    font-weight: 400;
+    font-size: 16px;
+}
+.dropdown-menu>li>a{
+    font-weight: 200;
+    font-size: 14px;
+}
+.navbar-nav > li.open .dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
 
 .header-title {
     font-size: 16px;

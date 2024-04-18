@@ -1,17 +1,45 @@
+"use strict";
+var $ = jQuery.noConflict();
 $(document).ready(function (){
     console.log("document ready");
     findAll();
-    //browse-category-1
-    $('#browse-category-1').on('click', function (){
-        var width = $(this).outerWidth(); // 获取.browse-category的宽度，包括padding和border
-        $('.dropdown-menu').width(width); // 设置.dropdown-menu的宽度
-        //  var leftPos = $('#browse-category-1').offset().left;
-        // 将计算出的左边距赋值给.dropdown-menu
-        //  $('.dropdown-menu').css('left', leftPos + 'px');
 
-        $('.dropdown-menu').toggle(); // 切换显示状态
-    })
+    function showMenu() {
+        $(this).removeClass("drop-collapsed");
+        $(this).addClass("open");
+    }
+    function hideMenu(){
+        $(this).removeClass("open");
+        var $dropdown = $(".dropdown");
+
+        $dropdown.each(function () {
+            $(this).addClass("drop-collapsed");
+        });
+    }
+
+
+    var $dropdown = $(".dropdown");
+
+    $dropdown.each(function () {
+        var $this = $(this);
+
+        var $dropmenu = $this.find(".dropdown-menu");
+        $dropmenu.css("height", $dropmenu.outerHeight());
+        $this.addClass("drop-collapsed");
+    });
+
+
+    // dropdown menu hover intent
+    var hovsettings = {
+        timeout:0,
+        interval: 0,
+        over: showMenu,
+        out: hideMenu
+    };
+
+    $(".dropdown").hoverIntent(hovsettings);
 })
+
 var rootURL = "http://localhost:8080/book";
 var findAll = function (){
     $.ajax({
@@ -26,7 +54,7 @@ var findAll = function (){
 }
 
 var renderBookShelf = function(books){
-    $('#book-shelf').val("");
+    $('#book-shelf').empty();
     books.forEach(function(book) {
         var categories = book.categories.split(',').join(' ');
         var articleContent = `
