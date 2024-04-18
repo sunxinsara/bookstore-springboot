@@ -14,6 +14,8 @@ public class Book {
     private String author;
     private String image_url;
     private String categories;
+    private String description;
+    private double price;
 
     public Integer getId() {
         return id;

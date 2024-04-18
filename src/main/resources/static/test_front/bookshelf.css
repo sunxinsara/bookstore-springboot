@@ -170,6 +170,20 @@ td:last-child {
 }
 
 #product-list .col-md-3 {
-  max-height: 600px;
+  max-height: 1300px;
   min-height: 500px;
+}
+
+.carousel-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px; /* 添加一些内边距 */
+  background: rgba(255, 255, 255, 0.8); /* 可选：添加半透明背景以增强可读性 */
+}
+
+#slide1-img{
+  height: 70%;
+  width: 70%;
 }
