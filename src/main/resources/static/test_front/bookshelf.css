@@ -171,7 +171,7 @@ td:last-child {
 
 #product-list .col-md-3 {
   max-height: 1300px;
-  min-height: 500px;
+  min-height: 480px;
 }
 
 .carousel-description {
@@ -186,4 +186,10 @@ td:last-child {
 #slide1-img{
   height: 70%;
   width: 70%;
+}
+
+.product-item {
+    min-height: 306.7px; /* 最小高度 */
+    max-height: 900px; /* 最大高度 */
+    overflow: hidden; /* 如果真的有必要可以隐藏溢出内容 */
 }
