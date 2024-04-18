@@ -21,11 +21,13 @@
                 { "data": "price" },
                 {
                   "data": null,
-                  "defaultContent": '<div>' + // 居中容器
-                          '<a href="#editBookModal" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Edit" style="color: #555555;"></i></a>' +
-                          '  ' + // 添加空格作为分隔
-                          '<a href="#deleteBookModal" class="delete" data-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="Delete" style="color: #d35400;"></i></a>' +
-                          '</div>',
+                  "render": function(data, type, row) {
+                      return '<div>' +
+                          '<a href="#editBookModal" class="edit" data-toggle="modal" data-id="' + row.id + '"><i class="fas fa-edit" data-toggle="tooltip" title="Edit" style="color: #555555;"></i></a>' +
+                          '  ' +
+                          '<a href="#deleteBookModal" class="delete" data-toggle="modal" data-id="' + row.id + '"><i class="fas fa-trash" data-toggle="tooltip" title="Delete" style="color: #d35400;"></i></a>' +
+                          '</div>';
+                  },
                   "orderable": false
                 }
               ],
@@ -42,4 +44,50 @@
                   $(this).addClass('selected');
               }
           });
+
+          // 监听表格内的编辑按钮点击事件
+          $('#example tbody').on('click', 'a.edit', function(event) {
+              event.preventDefault();
+
+              var tr = $(this).closest('tr');
+              var row = table.row(tr);
+              var rowData = row.data(); // 这里获取当前行的数据
+
+              // 填充模态框中的表单字段
+              $('#bookId').val(rowData.id);
+              $('#bookTitle').val(rowData.title);
+              $('#bookCategories').val(rowData.categories);
+              $('#bookAuthor').val(rowData.author);
+              $('#bookDescription').val(rowData.description);
+              $('#bookImage').val(rowData.image_url);
+              $('#bookPrice').val(rowData.price);
+
+              // 显示模态框
+              $('#editBookModal').show();
+          });
+
+          $("#saveEdit").on("click", function (event){
+              event.preventDefault();
+              // 将表单数据转换为数组
+              var formDataArray = $("#edit-form").serializeArray();
+
+              // 将数组转换为 JSON 格式
+              var formDataJSON = {};
+              $.each(formDataArray, function() {
+                  // 将字段名转换为小写形式
+                  var fieldName = this.name.toLowerCase();
+
+                  // 添加到 JSON 对象中
+                  formDataJSON[fieldName] = this.value;
+              });
+
+              // 输出 JSON 格式的表单数据
+              console.log("Form data in JSON:", formDataJSON);
+              updateBook();
+              console.log();
+          })
       })
+
+var updateBook = function (){
+
+}
