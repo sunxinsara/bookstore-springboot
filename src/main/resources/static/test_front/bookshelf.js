@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 var findAll = function (){
     $.ajax({
-        url: rootURL + "/all", // 后端 API 地址
+        url: rootURL, // 后端 API 地址
         type: 'GET',
         dataType: 'json',
         success: renderBookList,
