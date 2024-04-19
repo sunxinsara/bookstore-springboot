@@ -9,6 +9,14 @@ var currentRow;
               "dataSrc": "" // 如果返回的 JSON 数据是一个数组，这里可以留空或设置为数组的路径
           },
           "columns": [ // 您需要根据实际从服务器接收到的 JSON 数据格式来设置列
+              {
+                  "data": null,
+                  "render": function(data, type, row) {
+                      return '<input type="checkbox" class="rowCheckbox" value="' + row.id + '">';
+                  },
+                  "orderable": false,
+                  "searchable": false
+              },
               { "data": "id" },
               { "data": "title" },
               { "data": "categories" },
@@ -99,6 +107,37 @@ var currentRow;
           event.preventDefault();
           deleteBook(currentRow.data().id);
       })
+
+      $('#saveAdd').on("click", function (event){
+          event.preventDefault();
+          var formDataArray = $("#addBookForm").serializeArray();
+          // 将数组转换为 JSON 格式
+          var formDataJSON = {};
+          $.each(formDataArray, function() {
+              // 添加到 JSON 对象中
+              formDataJSON[this.name] = this.value;
+          });
+
+          addBook(formDataJSON);
+      });
+
+      // Handle click on "Select all" control
+      $('#selectAll').on('click', function(){
+          var rows = table.rows({ 'search': 'applied' }).nodes();
+          $('input[type="checkbox"]', rows).prop('checked', this.checked);
+      });
+
+        // Handle click on checkbox to set state of "Select All" control
+      $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+          // If checkbox is not checked
+          if(!this.checked){
+              var el = $('#selectAll').get(0);
+              // If "Select all" control is checked and has 'indeterminate' property
+              if(el && el.checked && ('indeterminate' in el)){
+                  el.indeterminate = true;
+              }
+          }
+      });
   })
 
 // 发送 AJAX 请求更新数据
@@ -118,6 +157,26 @@ var updateBook = function (formDataJSON){
             // 处理错误响应
             alert("Error updating data");
             console.error("Error updating data:", error);
+        }
+    });
+}
+
+var addBook = function (formDataJSON){
+    $.ajax({
+        url: rootURL,
+        type: "POST", // 或者 "PUT"、"PATCH"，根据你的需求选择合适的方法
+        contentType: "application/json",
+        data: JSON.stringify(formDataJSON),
+        success: function(responseData) {
+            // 处理成功响应
+            table.ajax.reload();
+            alert("Data adding successfully");
+            console.log("Data addBook successfully:", responseData);
+        },
+        error: function(xhr, status, error) {
+            // 处理错误响应
+            alert("Error addBook data");
+            console.error("Error addBook data:", error);
         }
     });
 }
