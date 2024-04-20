@@ -56,6 +56,25 @@ var currentRow;
           }
       });
 
+      // selected by checkbox
+      $('#example tbody').on('change', 'input.rowCheckbox', function() {
+          // 检查页面上所有行的选择框是否都被选中
+          var allChecked = true;
+          var allCheckboxes = table.$('input.rowCheckbox', {"page": "current"});
+          allCheckboxes.each(function() {
+              // 如果有一个未被选中，则将 allChecked 设为 false
+              if (!this.checked) {
+                  allChecked = false;
+                  return false;  // 跳出循环
+              }
+          });
+
+          // 设置全选框的状态
+          var selectAll = $('#selectAll').get(0);  // 获取全选框元素
+          selectAll.checked = allChecked;
+          selectAll.indeterminate = !allChecked && $(allCheckboxes).filter(':checked').length > 0;
+      });
+
       // 监听表格内的编辑按钮点击事件
       $('#example tbody').on('click', 'a.edit', function(event) {
           event.preventDefault();
@@ -122,9 +141,12 @@ var currentRow;
       });
 
       // Handle click on "Select all" control
-      $('#selectAll').on('click', function(){
+      $('#selectAll').on('click', function() {
           var rows = table.rows({ 'search': 'applied' }).nodes();
-          $('input[type="checkbox"]', rows).prop('checked', this.checked);
+          var isChecked = this.checked;
+          $(rows).find('input.rowCheckbox').each(function() {
+              this.checked = isChecked;
+          });
       });
 
         // Handle click on checkbox to set state of "Select All" control
