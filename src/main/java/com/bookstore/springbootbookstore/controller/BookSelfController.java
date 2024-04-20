@@ -1,13 +1,16 @@
 package com.bookstore.springbootbookstore.controller;
 
+import com.bookstore.springbootbookstore.entity.BatchPostDTO;
 import com.bookstore.springbootbookstore.entity.Book;
 import com.bookstore.springbootbookstore.repository.BookRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 // curl http://localhost:8080/book/all
@@ -85,4 +88,25 @@ public class BookSelfController {
         }
     }
 
+    @PostMapping("/deleteBooks")
+    @Transactional
+    public ResponseEntity<String> deleteBooks(@RequestBody BatchPostDTO dto) {
+        List<Integer> ids = dto.getIds();  // 从DTO获取ID列表
+        try {
+            // 检查所有书籍是否存在
+            for (Integer id : ids) {
+                if (!bookRepository.existsById(id)) {
+                    // 如果任何一个书籍不存在，返回404 Not Found
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("One or more books not found");
+                }
+            }
+            // 删除所有书籍
+            bookRepository.deleteAllById(ids);
+            return ResponseEntity.ok("Books deleted successfully");
+        } catch (Exception e) {
+            // 在发生异常时返回500 Internal Server Error
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting books");
+        }
+    }
 }
+

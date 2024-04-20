@@ -193,3 +193,78 @@ td:last-child {
     max-height: 900px; /* 最大高度 */
     overflow: hidden; /* 如果真的有必要可以隐藏溢出内容 */
 }
+
+/* Custom CSS */
+.img-custom {
+    width: 100%; /* Ensures the image is responsive and covers the figure element */
+    height: auto; /* Maintains the aspect ratio */
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .img-custom {
+        width: 200px; /* Example fixed width */
+        height: 300px; /* Example fixed height */
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .img-custom {
+        width: 150px; /* Smaller fixed width */
+        height: 225px; /* Smaller fixed height */
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+    .img-custom {
+        width: 100px; /* Even smaller fixed width */
+        height: 200px; /* Even smaller fixed height */
+    }
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-style {
+    flex: 1; /* This makes the figure expand to fill available space, aligning item height */
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch; /* This will stretch the content to fit the container */
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .product-item {
+        min-height: 800px; /* 较小设备的最小高度 */
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .product-item {
+        min-height: 200px; /* 中等设备的最小高度 */
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .product-item {
+        min-height: 307px; /* 较大设备的最小高度 */
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .product-item {
+        min-height: 400px; /* 非常大的设备的最小高度 */
+    }
+
+    .product-item figcaption {
+        min-height: 90px;
+    }
+}

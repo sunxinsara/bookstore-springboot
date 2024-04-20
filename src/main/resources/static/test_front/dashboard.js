@@ -33,9 +33,9 @@ var currentRow;
               "data": null,
               "render": function(data, type, row) {
                   return '<div>' +
-                      '<a href="#editBookModal" class="edit" data-toggle="modal" data-id="' + row.id + '"><i class="fas fa-edit" data-toggle="tooltip" title="Edit" style="color: #555555;"></i></a>' +
+                      '<a href="#editBookModal" class="edit" data-toggle="modal" data-id="' + row.id + '" data-type="single"><i class="fas fa-edit" data-toggle="tooltip" title="Edit" style="color: #555555;"></i></a>' +
                       '  ' +
-                      '<a href="#deleteBookModal" class="delete" data-toggle="modal" data-id="' + row.id + '"><i class="fas fa-trash" data-toggle="tooltip" title="Delete" style="color: #d35400;"></i></a>' +
+                      '<a href="#deleteBookModal" class="delete" data-toggle="modal" data-id="' + row.id + '" data-type="single"><i class="fas fa-trash" data-toggle="tooltip" title="Delete" style="color: #d35400;"></i></a>' +
                       '</div>';
               },
               "orderable": false
@@ -43,10 +43,12 @@ var currentRow;
           ],
           "columnDefs": [
               { "targets": [5,6], "className": "board-center" }
-          ]
+          ],
+          "scrollX": true
       });
 
       // select effect
+  /*
       $('#example tbody').on('click', 'tr', function() {
           if ($(this).hasClass('selected')) {
               $(this).removeClass('selected');
@@ -54,25 +56,22 @@ var currentRow;
               table.$('tr.selected').removeClass('selected');
               $(this).addClass('selected');
           }
-      });
+      });*/
 
       // selected by checkbox
       $('#example tbody').on('change', 'input.rowCheckbox', function() {
-          // 检查页面上所有行的选择框是否都被选中
-          var allChecked = true;
-          var allCheckboxes = table.$('input.rowCheckbox', {"page": "current"});
-          allCheckboxes.each(function() {
-              // 如果有一个未被选中，则将 allChecked 设为 false
-              if (!this.checked) {
-                  allChecked = false;
-                  return false;  // 跳出循环
+          if (this.checked) {
+              if (!$(this).closest('tr').hasClass('selected')){
+                  $(this).closest('tr').addClass('selected')
               }
-          });
+              console.log('Checkbox is checked');
+          } else {
+              if ($(this).closest('tr').hasClass('selected')){
+                  $(this).closest('tr').removeClass('selected')
+              }
+              console.log('Checkbox is unchecked');
+          }
 
-          // 设置全选框的状态
-          var selectAll = $('#selectAll').get(0);  // 获取全选框元素
-          selectAll.checked = allChecked;
-          selectAll.indeterminate = !allChecked && $(allCheckboxes).filter(':checked').length > 0;
       });
 
       // 监听表格内的编辑按钮点击事件
@@ -122,9 +121,35 @@ var currentRow;
           $('#editBookModal').modal('hide');
       });
 
+      $('#deleteBookModal').on('show.bs.modal', function(event) {
+          var button = $(event.relatedTarget); // Button that triggered the modal
+          var type = button.data('type'); // Extract info from data-* attributes
+          var modal = $(this);
+
+          // Clear previous data-type attribute
+          var deleteConfirmButton = $('#deleteConform');
+          deleteConfirmButton.removeData('type');
+
+          if (type === 'single') {
+              var id = button.data('id'); // Get the id for single deletion
+              deleteConfirmButton.data('type', 'single').data('id', id);
+
+          } else if (type === 'batch') {
+              $('#deleteConform').removeClass("data-type");
+              deleteConfirmButton.data('type', 'batch');
+          }
+      });
+
       $("#deleteConform").on("click", function (event){
           event.preventDefault();
-          deleteBook(currentRow.data().id);
+          var type = $(this).data('type');
+          if (type === 'single') {
+              var id = $(this).data('id');
+              deleteBookById(id);
+          } else if (type === 'batch') {
+              deleteSelectedBooks();
+          }
+          $('#deleteBookModal').modal('hide');
       })
 
       $('#saveAdd').on("click", function (event){
@@ -203,7 +228,7 @@ var addBook = function (formDataJSON){
     });
 }
 
-var deleteBook = function (id){
+var deleteBookById = function (id){
     $.ajax({
         url: rootURL + "/" + id,
         type: "DELETE", // 或者 "PUT"、"PATCH"，根据你的需求选择合适的方法
@@ -219,6 +244,44 @@ var deleteBook = function (id){
             // 处理错误响应
             alert("Error deleting data");
             console.error("Error deleting data:", error);
+        }
+    });
+}
+
+function getSelectedRowIds() {
+    var ids = [];
+    // 遍历所有选中的checkbox
+    $('.rowCheckbox:checked').each(function() {
+        ids.push($(this).val());  // 假设checkbox的value属性是行的ID
+    });
+    return ids;
+}
+
+function getSelectedRowIds() {
+    var ids = [];
+    // 遍历所有选中的checkbox
+    $('.rowCheckbox:checked').each(function() {
+        ids.push($(this).val());  // 假设checkbox的value属性是行的ID
+    });
+    return ids;
+}
+
+// It is not recommended to use DELETE, because according to RFC standards, the body of a DELETE request is semantically meaningless.
+// In fact, some gateways, proxies, and firewalls may strip the body from a DELETE request upon receipt.
+var deleteSelectedBooks = function (){
+    let ids = getSelectedRowIds();  // Assuming getSelectedRowIds() correctly retrieves the IDs of selected rows.
+    $.ajax({
+        url: rootURL + '/deleteBooks',  // Your server-side deletion endpoint URL
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ ids: ids }),  // Convert the array of IDs into a JSON string
+        success: function(response) {
+            // Reload DataTable or remove corresponding rows upon successful deletion
+            $('#example').DataTable().ajax.reload();  // Reload data if server-side processing is used
+            alert('Successfully deleted ' + ids.length + ' records.');
+        },
+        error: function(xhr, status, error) {
+            alert('Deletion failed: ' + error);
         }
     });
 }

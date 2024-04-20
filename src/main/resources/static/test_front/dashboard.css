@@ -108,3 +108,8 @@ body {
   text-align: center;
   vertical-align: middle;
 }
+
+#example tbody tr:hover {
+  background-color: #f2f2f2; /* 淡灰色背景 */
+}
+
