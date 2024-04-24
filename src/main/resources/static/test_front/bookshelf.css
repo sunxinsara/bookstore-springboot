@@ -330,3 +330,8 @@ td:last-child {
         flex-direction: column; /* 小屏幕上改为垂直排列 */
     }
 }
+
+#slide1-img {
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25); /* 水平偏移、垂直偏移、模糊半径和颜色 */
+    transition: box-shadow 0.3s ease-in-out; /* 添加平滑过渡效果 */
+}
