@@ -92,7 +92,7 @@
 
     <!-- Carousel
     ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
         <!-- Indicators -->
         <ol class="carousel-indicators">
           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -101,20 +101,20 @@
         </ol>
         <div class="carousel-inner" role="listbox">
           <div class="item active">
-            <div class="row">
-              <!-- 图片列 -->
-              <div class="col-sm-6">
-                <img id="slide1-img" src="https://book.io/wp-content/uploads/2024/04/reservoir-featured.png" alt="First slide" class="img-responsive">
+              <div class="carousel-img-wrapper" id="img-wrapper">
+                  <div class="row align-items-stretch" id="img-container">
+                      <!-- 图片列 -->
+                      <div class="col-sm-6 relative" id="img-col">
+                          <img id="slide1-img" class="center-abs" src="https://book.io/wp-content/uploads/2024/04/reservoir-featured.png" alt="First slide">
+                      </div>
+                      <!-- 描述列 -->
+                      <div class="col-md-6" id="description-col">
+                          <h2>THE RESERVOIR</h2>
+                          <p>The Reservoir is a twisted rom-com for our distanced time, when the merest touch could kill and conspiracy theories propagate like viruses―a contemporary union of Death in Venice, Rear Window, and The Plague.</p>
+                          <a href="#" class="btn btn-primary">Read More</a>
+                      </div>
+                  </div>
               </div>
-              <!-- 描述列 -->
-              <div class="col-sm-6">
-                <div class="carousel-description">
-                  <h1>Example headline.</h1>
-                  <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-                </div>
-              </div>
-            </div>
           </div>
           <div class="item">
             <img class="second-slide" src="../img/slide2.png" alt="Second slide">

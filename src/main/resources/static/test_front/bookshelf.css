@@ -1,3 +1,11 @@
+:root {
+    --max-padding-right: 150px; /* 定义最大内边距 */
+}
+
+body {
+    min-width: 400px;
+}
+
 h2 {
     display: block;
     font-size: 1.5em;
@@ -183,11 +191,6 @@ td:last-child {
   background: rgba(255, 255, 255, 0.8); /* 可选：添加半透明背景以增强可读性 */
 }
 
-#slide1-img{
-  height: 70%;
-  width: 70%;
-}
-
 
 /* Custom CSS */
 .img-custom {
@@ -261,5 +264,69 @@ td:last-child {
 
     .product-item figcaption {
         min-height: 90px;
+    }
+}
+
+.carousel-img-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.relative {
+    position: relative;
+}
+
+.center-abs {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-30%, -50%);
+    width: auto;  /* 或者是100%, 根据你图片显示的需求调整 */
+    max-height: 100%;  /* 确保图片不超过容器宽度 */
+    height: 80%;  /* 保持图片比例 */
+}
+
+#img-wrapper, #img-container, #img-col, #description-col{
+    height: 100%;
+}
+
+#description-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 顶端对齐 */
+    padding-top: 75px;
+    padding-right: calc(min(10%, var(--max-padding-right)));
+    width: 45%;
+    padding-left: 0px;
+}
+#img-wrapper{
+    background-image: url('./background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 768px) {
+    .center-abs {
+        transform: translate(-50%, -50%);
+    }
+    #img-col, #description-col{
+        height: 50%;
+    }
+    #description-col{
+        align-items: center;
+        width: 80%;
+        padding-top:0;
+        padding-right:0;
+    }
+    #img-container {
+        display: flex;
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        height: 100%;
+    }
+    #img-container {
+        flex-direction: column; /* 小屏幕上改为垂直排列 */
     }
 }
