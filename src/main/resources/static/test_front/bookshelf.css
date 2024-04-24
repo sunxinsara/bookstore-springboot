@@ -337,3 +337,11 @@ td:last-child {
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25); /* 水平偏移、垂直偏移、模糊半径和颜色 */
     transition: box-shadow 0.3s ease-in-out; /* 添加平滑过渡效果 */
 }
+
+.product-item {
+    transition: transform 0.5s ease; /* Apply smooth transition effect to product-item */
+}
+
+.product-item:hover img {
+    transform: scale(1.1); /* When the mouse hovers over the product-item, enlarge the inner image */
+}
