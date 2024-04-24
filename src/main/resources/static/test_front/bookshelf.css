@@ -288,11 +288,13 @@ td:last-child {
     height: 80%;  /* 保持图片比例 */
 }
 
-#img-wrapper, #img-container, #img-col, #description-col{
+#img-wrapper, #img-container, #img-col, #description-col,
+#img-wrapper2, #img-container2, #img-col2, #description-col2,
+#img-wrapper3, #img-container3, #img-col3, #description-col3{
     height: 100%;
 }
 
-#description-col {
+#description-col, #description-col2, #description-col3 {
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* 顶端对齐 */
@@ -301,7 +303,7 @@ td:last-child {
     width: 45%;
     padding-left: 0px;
 }
-#img-wrapper{
+#img-wrapper, #img-wrapper2, #img-wrapper3{
     background-image: url('./background.png');
     background-size: cover;
     background-position: center;
@@ -311,27 +313,27 @@ td:last-child {
     .center-abs {
         transform: translate(-50%, -50%);
     }
-    #img-col, #description-col{
+    #img-col, #description-col, #img-col2, #description-col2, #img-col3, #description-col3{
         height: 50%;
     }
-    #description-col{
+    #description-col, #description-col2, #description-col3{
         align-items: center;
         width: 80%;
         padding-top:0;
         padding-right:0;
     }
-    #img-container {
+    #img-container,  #img-container2, #img-container3 {
         display: flex;
         justify-content: center; /* 水平居中 */
         align-items: center; /* 垂直居中 */
         height: 100%;
     }
-    #img-container {
+    #img-container,#img-container2,#img-container3 {
         flex-direction: column; /* 小屏幕上改为垂直排列 */
     }
 }
 
-#slide1-img {
+.slide-img {
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.25); /* 水平偏移、垂直偏移、模糊半径和颜色 */
     transition: box-shadow 0.3s ease-in-out; /* 添加平滑过渡效果 */
 }
