@@ -5,6 +5,7 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
+  min-width: 400px;
 }
 
 
@@ -110,6 +111,9 @@ body {
 }
 
 #example tbody tr:hover {
-  background-color: #f2f2f2; /* 淡灰色背景 */
+  background-color: #f2f2f2;
 }
 
+.placeholder:hover {
+  cursor: pointer; /* Changes the cursor to a pointer/hand icon on hover */
+}
