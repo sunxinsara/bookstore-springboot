@@ -21,7 +21,9 @@ deactivate HTML
 
 User -> HTML: Click Edit
 activate HTML
-HTML -> DT: Fetch Row Data
+HTML -> API: POST /book (JSON DatUpdatea)
+API --> HTML: Confirm Update
+HTML -> DT: update current row
 DT --> HTML: Return Data
 HTML -> HTML: Populate Edit Modal
 deactivate HTML

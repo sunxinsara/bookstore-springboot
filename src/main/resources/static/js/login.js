@@ -3,7 +3,7 @@ $(document).ready(function () {
     setupFormInteractions();
     $('#signup-form').on('submit', function (e){
         e.preventDefault();
-        window.location.href = 'pages/bookstore.html';
+        window.location.href = 'management/dashboard.html';
     });
 });
 
@@ -14,7 +14,7 @@ function setupFormSubmission() {
 function submitForm(e) {
     e.preventDefault();
     var formData = $(this).serialize();
-    window.location.href = 'mangement/dashboard.html';
+    window.location.href = 'management/dashboard.html';
     // sendFormData(formData);
 }
 

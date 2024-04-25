@@ -6,7 +6,9 @@ CREATE TABLE book (
     title VARCHAR(255) NOT NULL,
     author VARCHAR(100) NOT NULL,
     image_url VARCHAR(255) NOT NULL,
-    categories VARCHAR(255)
+    categories VARCHAR(255),
+    description VARCHAR(255),
+    price DOUBLE
 );
 
 INSERT INTO book (id, title, author, image_url, categories, description, price) VALUES
