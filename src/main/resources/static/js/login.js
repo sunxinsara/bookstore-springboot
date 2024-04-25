@@ -14,7 +14,7 @@ function setupFormSubmission() {
 function submitForm(e) {
     e.preventDefault();
     var formData = $(this).serialize();
-    window.location.href = 'pages/bookstore.html';
+    window.location.href = 'mangement/dashboard.html';
     // sendFormData(formData);
 }
 

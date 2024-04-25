@@ -8,8 +8,7 @@ CREATE TABLE book (
     image_url VARCHAR(255) NOT NULL,
     categories VARCHAR(255)
 );
-use db_example;
-delete from book where id <= 19 ;
+
 INSERT INTO book (id, title, author, image_url, categories, description, price) VALUES
 (1, 'After You', 'Jojo Moyes', 'https://images-na.ssl-images-amazon.com/images/I/81UWB7oUZ0L.jpg', 'romantic', 'Louisa Clark is no longer just an ordinary girl living an ordinary life. After the transformative six months spent.', 12.99),
 (2, 'Disappearing Earth', 'Julia Phillips', 'https://images-na.ssl-images-amazon.com/images/I/A1kNdYXw0GL.jpg', 'adventure', 'Explore the complex interweaving of lives across a remote Siberian peninsula in "Disappearing Earth."', 15.49),

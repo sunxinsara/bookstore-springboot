@@ -304,7 +304,7 @@ td:last-child {
     padding-left: 0px;
 }
 #img-wrapper, #img-wrapper2, #img-wrapper3{
-    background-image: url('./background.png');
+    background-image: url('background.png');
     background-size: cover;
     background-position: center;
 }
