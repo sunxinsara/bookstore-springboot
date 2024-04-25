@@ -2,7 +2,6 @@ var rootURL = "http://localhost:8080/book";
 
 $(document).ready(function() {
     findAll();
-    //$(window).resize(normalizeProductHeights);
 });
 
 $(window).on('load', function() {
