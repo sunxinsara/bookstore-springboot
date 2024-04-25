@@ -29,7 +29,9 @@ function handleSearch(){
                 },
                 success: renderSearchResult,
                 error: function() {
-                    $('#search-results').html('<p>Error loading results.</p>'); // Display error message if the request fails
+                    $('#myCarousel').html("");
+                    $('#popular-books').html("");
+                    $('#search-results').html('<h2>No results found.</h2>'); // Display error message if the request fails
                 }
             });
         }
