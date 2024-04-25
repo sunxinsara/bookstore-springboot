@@ -36,20 +36,29 @@ public class BookSelfController {
         }
     }
 
-    @PostMapping
-    public @ResponseBody
-    ResponseEntity<String> addNewBook(@RequestBody Book book){
-        try {
-            bookRepository.save(book);
-            // Returns a 201 Created status code with a message body
-            return ResponseEntity.status(HttpStatus.CREATED).body("Saved");
-        } catch (Exception e) {
-            // Returns a 500 Internal Server Error status code with an error message on exception
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving the book");
+    @GetMapping(path="/search/{title}")
+    public ResponseEntity<List<Book>> getBooksByTitle(@PathVariable String title) {
+        List<Book> books = bookRepository.findByTitleContainingIgnoreCase(title);
+        if (!books.isEmpty()) {
+            return ResponseEntity.ok(books);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
-    @PutMapping
+    @PostMapping
+    public ResponseEntity<Book> addNewBook(@RequestBody Book book) {
+        try {
+            Book savedBook = bookRepository.save(book);  // Save the book and receive the saved object
+            // Returns a 201 Created status code with the saved book as the body
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
+        } catch (Exception e) {
+            // Returns a 500 Internal Server Error status code with an error message on exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@RequestBody Book book) {
         try {
             // Check if the book exists

@@ -1,12 +1,11 @@
 var rootURL = "http://localhost:8080/book";
 var table;
-var currentRow;
-
+var currentRow;  // used for edit function, with global currentRow can avoid redraw the whole table
 $(document).ready(function() {
     initializeDataTable();
     handleRowCheckboxChange();
     handleEditButtonClick();
-    handleDeleteButtonClick();
+    handleDelete();
     handleSaveEdit();
     handleSaveAdd();
     handleSelectAllCheckbox();
@@ -81,11 +80,44 @@ function handleEditButtonClick() {
     });
 }
 
-function handleDeleteButtonClick() {
-    $('#example tbody').on('click', 'a.delete', function(event) {
+function handleDelete() {
+    // delete button
+    $('#example tbody').on('click', 'a.delete', function (event){
         event.preventDefault();
-        confirmDelete($(this).data('id'));
+        var tr = $(this).closest('tr');
+        currentRow  = table.row(tr); // update global currentRow
+    })
+
+    $('#deleteBookModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var type = button.data('type'); // Extract info from data-* attributes
+        var modal = $(this);
+
+        // Clear previous data-type attribute
+        var deleteConfirmButton = $('#deleteConform');
+        deleteConfirmButton.removeData('type');
+
+        if (type === 'single') {
+            var id = button.data('id'); // Get the id for single deletion
+            deleteConfirmButton.data('type', 'single').data('id', id);
+
+        } else if (type === 'batch') {
+            $('#deleteConform').removeClass("data-type");
+            deleteConfirmButton.data('type', 'batch');
+        }
     });
+
+    $("#deleteConform").on("click", function (event){
+        event.preventDefault();
+        var type = $(this).data('type');
+        if (type === 'single') {
+            var id = $(this).data('id');
+            deleteBookById(id);
+        } else if (type === 'batch') {
+            deleteSelectedBooks();
+        }
+        $('#deleteBookModal').modal('hide');
+    })
 }
 
 function handleSaveEdit() {
@@ -102,6 +134,7 @@ function handleSaveAdd() {
         event.preventDefault();
         var bookData = formDataToJson($("#addBookForm").serializeArray());
         addBook(bookData);
+        $('#addBookModal').modal('hide');
     });
 }
 
@@ -132,11 +165,11 @@ function showEditModal(row) {
     $('#bookDescription').val(rowData.description);
     $('#bookImage').val(rowData.image_url);
     $('#bookPrice').val(rowData.price);
-    $('#editBookModal').modal('show');
+    $('#editBookModal').show();
 }
 
 function confirmDelete(bookId) {
-    $('#deleteBookModal').modal('show');
+    $('#deleteBookModal').show();
     $('#deleteConform').data('id', bookId);
 }
 
@@ -221,6 +254,11 @@ var deleteSelectedBooks = function (){
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ ids: ids }), // Send IDs as JSON
+        beforeSend: function(xhr) {
+            // Log the request data (including headers) before sending
+            console.log("Request Data:");
+            console.log(xhr);
+        },
         success: function() {
             // On successful batch deletion, reload the DataTable
             table.ajax.reload(null, false); // Reload without resetting user's paging

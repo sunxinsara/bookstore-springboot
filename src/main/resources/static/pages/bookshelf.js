@@ -2,7 +2,68 @@ var rootURL = "http://localhost:8080/book";
 
 $(document).ready(function() {
     findAll();
+    handleTabLogic();
+    handleSearch();
+    handleHome();
+});
 
+function handleHome(){
+    $('#home-button').on('click', function (event) {
+        event.preventDefault();
+        location.reload();
+    })
+}
+function handleSearch(){
+    $('form').on('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting automatically
+
+        var query = $('#search-input').val();
+        if (query) {
+            $.ajax({
+                url: rootURL + '/search/' + encodeURIComponent(query), // Use encodeURIComponent to ensure URL validity
+                type: 'get',
+                beforeSend: function(xhr) {
+                    // Log the request data (including headers) before sending
+                    console.log("Request Data:");
+                    console.log(xhr);
+                },
+                success: renderSearchResult,
+                error: function() {
+                    $('#search-results').html('<p>Error loading results.</p>'); // Display error message if the request fails
+                }
+            });
+        }
+    });
+}
+
+function renderSearchResult(response){
+    $('#myCarousel').html("");
+    $('#popular-books').html("");
+    var products = response;   // The server returns an array containing multiple products
+    if (products && products.length > 0) {
+        var html = '';
+        products.forEach(function(product) {
+            html += '<div class="col-md-3">' +
+                '<div class="product-item">' +
+                '<figure class="product-style">' +
+                '<img src="' + product.image_url + '" alt="Books" class="product-item img-fluid img-custom">' +
+                '<button type="button" class="add-to-cart" data-product-id="' + product.id + '">Add to Cart</button>' +
+                '</figure>' +
+                '<figcaption>' +
+                '<h3>' + product.title + '</h3>' +
+                '<span>' + product.author + '</span>' +
+                '<div class="item-price">$ ' + product.price + '</div>' +
+                '</figcaption>' +
+                '</div>' +
+                '</div>';
+        });
+        $('#search-results').html(html);
+    } else {
+        $('#search-results').html('<p>No results found.</p>');
+    }
+}
+
+function handleTabLogic(){
     $('.tab').each(function() {
         $(this).on('click', function() {
             // Remove 'active' class from all tabs and tab content
@@ -21,8 +82,7 @@ $(document).ready(function() {
             $(tabTarget).show();  // Only show the active content
         });
     });
-
-});
+}
 
 $(window).on('load', function() {
     console.log('All resources finished loading!');
@@ -51,9 +111,14 @@ function normalizeProductHeights() {
 
 var findAll = function (){
     $.ajax({
-        url: rootURL, // 后端 API 地址
+        url: rootURL,
         type: 'GET',
         dataType: 'json',
+        beforeSend: function(xhr) {
+            // Log the request data (including headers) before sending
+            console.log("Request Data:");
+            console.log(xhr);
+        },
         success: renderBookList,
         error: function(xhr, status, error) {
             console.error("An error occurred fetching the product data: " + error);
