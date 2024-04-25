@@ -1,0 +1,48 @@
+@startuml
+participant User
+participant "HTML Page" as HTML
+participant DataTable as DT
+database "Server API" as API
+
+User -> HTML: Load Page
+activate HTML
+HTML -> DT: Initialize DataTable
+activate DT
+DT -> API: GET /book
+API --> DT: Return JSON Data
+DT --> HTML: Render Table
+deactivate DT
+
+User -> HTML: Select Row with Checkbox
+activate HTML
+HTML -> DT: Highlight Row
+DT --> HTML: Row Selected
+deactivate HTML
+
+User -> HTML: Click Edit
+activate HTML
+HTML -> DT: Fetch Row Data
+DT --> HTML: Return Data
+HTML -> HTML: Populate Edit Modal
+deactivate HTML
+
+User -> HTML: Submit Edit
+activate HTML
+HTML -> HTML: Serialize Form Data
+HTML -> API: PUT /book (JSON Data)
+API --> HTML: Confirm Update
+HTML -> DT: Update Row
+DT --> HTML: Redraw Table
+deactivate HTML
+
+User -> HTML: Click Delete
+activate HTML
+HTML -> DT: Fetch Row Data
+DT --> HTML: Return Data
+HTML -> API: DELETE /book/{id}
+API --> HTML: Confirm Deletion
+HTML -> DT: Remove Row
+DT --> HTML: Redraw Table
+deactivate HTML
+
+@enduml
