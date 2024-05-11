@@ -1,50 +1,40 @@
 @startuml
-participant User
-participant "HTML Page" as HTML
-participant DataTable as DT
-database "Server API" as API
 
-User -> HTML: Load Page
-activate HTML
-HTML -> DT: Initialize DataTable
-activate DT
-DT -> API: GET /book
-API --> DT: Return JSON Data
-DT --> HTML: Render Table
-deactivate DT
+actor User
+entity "UI" as UI
+entity "Server" as Server
 
-User -> HTML: Select Row with Checkbox
-activate HTML
-HTML -> DT: Highlight Row
-DT --> HTML: Row Selected
-deactivate HTML
+== Initialization ==
+User -> UI : Access Dashboard
+UI -> Server : GET http://localhost:8080/book
+Server --> UI : Return Books Data
+UI -> User : Display Books
 
-User -> HTML: Click Edit
-activate HTML
-HTML -> API: POST /book (JSON DatUpdatea)
-API --> HTML: Confirm Update
-HTML -> DT: update current row
-DT --> HTML: Return Data
-HTML -> HTML: Populate Edit Modal
-deactivate HTML
+== Add Book ==
+User -> UI : Fill Add Book Form
+User -> UI : Submit Form
+UI -> Server : POST http://localhost:8080/book
+Server --> UI : Confirm Addition
+UI -> User : Show Addition Success
 
-User -> HTML: Submit Edit
-activate HTML
-HTML -> HTML: Serialize Form Data
-HTML -> API: PUT /book (JSON Data)
-API --> HTML: Confirm Update
-HTML -> DT: Update Row
-DT --> HTML: Redraw Table
-deactivate HTML
+== Edit Book ==
+User -> UI : Select Edit
+UI -> User : Fill Edit Book Form
+User -> UI : Submit Updated Data
+UI -> Server : PUT http://localhost:8080/book/{bookId}
+Server --> UI : Confirm Update
+UI -> User : Show Update Success
 
-User -> HTML: Click Delete
-activate HTML
-HTML -> DT: Fetch Row Data
-DT --> HTML: Return Data
-HTML -> API: DELETE /book/{id}
-API --> HTML: Confirm Deletion
-HTML -> DT: Remove Row
-DT --> HTML: Redraw Table
-deactivate HTML
+== Delete Book by ID ==
+User -> UI : Select Delete (Single)
+UI -> Server : DELETE http://localhost:8080/book/{bookId}
+Server --> UI : Confirm Deletion
+UI -> User : Show Deletion Success
+
+== Delete Multiple Books ==
+User -> UI : Select Delete (Multiple)
+UI -> Server : POST http://localhost:8080/book/deleteBooks
+Server --> UI : Confirm Batch Deletion
+UI -> User : Show Batch Deletion Success
 
 @enduml
