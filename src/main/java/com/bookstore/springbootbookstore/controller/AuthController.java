@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@Profile("not-active-profile")
 public class AuthController {
     private UserService userService;
 
